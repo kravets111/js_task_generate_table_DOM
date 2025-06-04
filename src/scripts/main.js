@@ -363,21 +363,23 @@ people.forEach((person) => {
 
   fields.forEach((field) => {
     const cell = document.createElement('td');
+    let value;
 
-    if (person.sex === 'm') {
-      person.sex = 'Male';
-    } else if (person.sex === 'f') {
-      person.sex = 'Female';
+    switch (field) {
+      case 'age':
+        value = person.died - person.born;
+        break;
+      case 'century':
+        value = Math.ceil(person.died / 100);
+        break;
+      case 'sex':
+        value = person.sex === 'm' ? 'Male' : 'Female';
+        break;
+      default:
+        value = person[field];
     }
 
-    if (field === 'age') {
-      cell.textContent = person.died - person.born;
-    } else if (field === 'century') {
-      cell.textContent = Math.ceil(person.died / 100);
-    } else {
-      cell.textContent = person[field];
-    }
-
+    cell.textContent = value;
     row.append(cell);
   });
 
